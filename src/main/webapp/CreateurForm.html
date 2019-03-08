@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Doodle</title>
+</head>
+<body>
+<div class="container">
+    <h1>Doodle</h1>
+    <form Method="POST" Action="/CreateurInfo">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <input type="text" class="form-control" placeholder="First name" name="name">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <input type="text" class="form-control" placeholder="Last name" name="firstname">
+            </div>
+        </div>
+
+        <p>
+            <button type=submit class="btn btn-danger" >Cancel</button>
+            <button class="btn btn-success" type=submit >Send</button>
+        </p>
+    </form>
+</div>
+</body>
+</html>
