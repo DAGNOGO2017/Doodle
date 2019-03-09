@@ -37,10 +37,10 @@ Il reste à développer tout le front-end et pour le back-end, il reste encore �
 
 ## Processus d'installation
 
-*Importer le projet dans éclipse,IntelliJ ou tout autres IDE
-*Creer une base de donnée dans mysql avec le nom "tpsir"
-*Importer le fichier tpsir.sql
-*Tester avec postman
+* Importer le projet dans éclipse,IntelliJ ou tout autres IDE
+* Creer une base de donnée dans mysql avec le nom "tpsir"
+* Importer le fichier tpsir.sql
+* Tester avec postman
 
 ## Tests
 
