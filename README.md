@@ -40,6 +40,7 @@ Il reste à développer tout le front-end et pour le back-end, il reste encore �
 * Importer le projet dans éclipse,IntelliJ ou tout autres IDE
 * Creer une base de donnée dans mysql avec le nom "tpsir"
 * Importer le fichier tpsir.sql
+* Lancer le serveur
 * Tester avec postman
 
 ## Tests
