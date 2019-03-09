@@ -14,6 +14,7 @@ Cette application a été développée en  Java 8 à l'aide des outils suivants 
 * [Tomcat](http://tomcat.apache.org) - Le conteneur web utilisé
 * [JAX-RS](https://github.com/jax-rs) - Used to generate RSS Feeds
 * [Jersey](https://github.com/jersey) - Le framework open-source utilisé pour développer des services selon l'architecture REST suivant les spécifications de JAX-RS.
+* [Postman](https://www.getpostman.com/) - Logiciel qui permet d'envoyer toutes sortes de requêtes et les personnaliser très finement
 
 ## Fonctionnalités supportées
 
@@ -33,6 +34,13 @@ Il reste à développer tout le front-end et pour le back-end, il reste encore �
 * la liste des absents
 * le mail qui sera transmis aux utilisateurs pour qu'ils renseignent leurs préférences alimentaires et leurs allergies après validation de la date de réunion.
 
+
+## Processus d'installation
+
+*Importer le projet dans éclipse,IntelliJ ou tout autres IDE
+*Creer une base de donnée dans mysql avec le nom "tpsir"
+*Importer le fichier tpsir.sql
+*Tester avec postman
 
 ## Tests
 
