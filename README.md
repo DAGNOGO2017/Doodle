@@ -29,7 +29,8 @@ Cette application permet pour l'instant de créer :
 ## Fonctionnalités encore à développer
 
 Il reste à développer tout le front-end et pour le back-end, il reste encore à gérer :
-* la confirmation de la date de la réunion
+* Faire des combobox ou checkbox pour que chaque participants choissise les dates et/ou les lieux qui lui convienent 
+* la confirmation de la date et/ou de la réunion
 * la liste des présents en fonction des réponses du sondage
 * la liste des absents
 * le mail qui sera transmis aux utilisateurs pour qu'ils renseignent leurs préférences alimentaires et leurs allergies après validation de la date de réunion.
