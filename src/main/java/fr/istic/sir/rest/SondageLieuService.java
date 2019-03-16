@@ -1,11 +1,14 @@
 package fr.istic.sir.rest;
 
 import jpa.EntityManagerHelper;
-import test.testjpa.domain.SondageLieu;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import Entities.SondageLieu;
+
 import java.util.List;
 
 @Path("/SondageLieu")

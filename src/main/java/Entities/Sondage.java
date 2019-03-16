@@ -1,5 +1,6 @@
-package test.testjpa.domain;
+package Entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Sondage")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Sondage {
+public abstract class Sondage implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	@Id

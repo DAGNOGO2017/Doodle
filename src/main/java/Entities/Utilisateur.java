@@ -1,5 +1,6 @@
-package test.testjpa.domain;
+package Entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Utilisateur")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Utilisateur {
+public abstract class Utilisateur implements Serializable {
 
 	@Id
 	@GeneratedValue

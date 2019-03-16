@@ -1,13 +1,15 @@
 package fr.istic.sir.rest;
 
 import jpa.EntityManagerHelper;
-import test.testjpa.domain.Createur;
-import test.testjpa.domain.Utilisateur;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import Entities.Createur;
+import Entities.Utilisateur;
+
 import java.util.List;
 
 @Path("/Createur")

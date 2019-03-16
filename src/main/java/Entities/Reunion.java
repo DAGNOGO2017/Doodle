@@ -1,4 +1,6 @@
-package test.testjpa.domain;
+package Entities;
+
+import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Reunion {
+public class Reunion implements Serializable {
 	
 	@Id
 	@GeneratedValue

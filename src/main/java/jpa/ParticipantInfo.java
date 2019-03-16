@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import test.testjpa.domain.Participant;
-import test.testjpa.domain.Reunion;
-import test.testjpa.domain.Utilisateur;
+import Entities.Participant;
+import Entities.Reunion;
+import Entities.Utilisateur;
 
 @WebServlet(name="participantinfo",
         urlPatterns={"/ParticipantInfo"})

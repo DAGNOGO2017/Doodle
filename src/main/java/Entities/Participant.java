@@ -1,4 +1,6 @@
-package test.testjpa.domain;
+package Entities;
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Participant")
 @PrimaryKeyJoinColumn(name = "idUser")
-public class Participant extends Utilisateur{
+public class Participant extends Utilisateur implements Serializable{
 	
 	
 	private static final long serialVersionUID = 1L;

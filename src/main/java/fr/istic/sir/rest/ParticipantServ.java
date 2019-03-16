@@ -2,7 +2,9 @@ package fr.istic.sir.rest;
 import jpa.EntityManagerHelper;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import test.testjpa.domain.Participant;
+
+import Entities.Participant;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.*;

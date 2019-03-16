@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import test.testjpa.domain.Utilisateur;
+import Entities.Utilisateur;
 
 @WebServlet(name="utilisateurInfo",
         urlPatterns={"/UtilisateurInfo"})

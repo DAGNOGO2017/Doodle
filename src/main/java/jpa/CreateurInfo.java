@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import test.testjpa.domain.Createur;
+import Entities.Createur;
 @WebServlet(name="createurinfo",
         urlPatterns={"/CreateurInfo"})
 

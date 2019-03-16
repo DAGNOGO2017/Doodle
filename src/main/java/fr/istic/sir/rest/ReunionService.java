@@ -1,11 +1,14 @@
 package fr.istic.sir.rest;
 
 import jpa.EntityManagerHelper;
-import test.testjpa.domain.Reunion;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import Entities.Reunion;
+
 import java.util.List;
 @Path("/Reunion")
 public class ReunionService {

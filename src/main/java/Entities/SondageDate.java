@@ -1,5 +1,6 @@
-package test.testjpa.domain;
+package Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SondageDate")
 @PrimaryKeyJoinColumn(name = "id")
-public class SondageDate extends Sondage{
+public class SondageDate extends Sondage implements Serializable{
 	
 	private List<Dates> listeDate = new ArrayList<Dates>();
 	

@@ -1,5 +1,7 @@
-package test.testjpa.domain;
+package Entities;
 
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Allergie {
+public class Allergie implements Serializable {
 	private int idAllergie;
 	private String libelleAllergie;
 	private Utilisateur utilisateur;

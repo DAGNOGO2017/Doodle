@@ -1,5 +1,6 @@
-package test.testjpa.domain;
+package Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SondageLieu")
 @PrimaryKeyJoinColumn(name = "id")
-public class SondageLieu extends Sondage{
+public class SondageLieu extends Sondage implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

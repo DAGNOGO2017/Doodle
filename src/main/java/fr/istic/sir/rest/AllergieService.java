@@ -1,11 +1,14 @@
 package fr.istic.sir.rest;
 
 import jpa.EntityManagerHelper;
-import test.testjpa.domain.Allergie;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import Entities.Allergie;
+
 import java.util.List;
 
 @Path("/Allergie")
