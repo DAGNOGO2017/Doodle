@@ -54,6 +54,38 @@ public class LieuReunion implements Serializable {
 	public void setSondageLieu(SondageLieu sondageLieu) {
 		this.sondageLieu = sondageLieu;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (idLieu ^ (idLieu >>> 32));
+		result = prime * result + ((libelleLieu == null) ? 0 : libelleLieu.hashCode());
+		result = prime * result + ((sondageLieu == null) ? 0 : sondageLieu.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LieuReunion other = (LieuReunion) obj;
+		if (idLieu != other.idLieu)
+			return false;
+		if (libelleLieu == null) {
+			if (other.libelleLieu != null)
+				return false;
+		} else if (!libelleLieu.equals(other.libelleLieu))
+			return false;
+		if (sondageLieu == null) {
+			if (other.sondageLieu != null)
+				return false;
+		} else if (!sondageLieu.equals(other.sondageLieu))
+			return false;
+		return true;
+	}
 	
 	
 

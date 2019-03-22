@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import DAOImpl.SondageDateDaoImpl;
 import Entities.SondageDate;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Path("/SondageDate")
 public class SondageDateService {
     private SondageDate sondageDate;
+    private SondageDateDaoImpl sondageDateDaoImpl = new SondageDateDaoImpl(); 
     EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
     EntityManager entityManager = entityManagerHelper.getEntityManager();
     public SondageDateService() {
@@ -24,18 +26,14 @@ public class SondageDateService {
     @Path("/sondageDate")
     @Produces(MediaType.APPLICATION_JSON)
     public List<SondageDate> list(){
-        SondageDate sondageDate = new SondageDate();
         entityManagerHelper.beginTransaction();
-        String req = "Select s from SondageDate s";
-        Query query = entityManager.createQuery(req,SondageDate.class );
-        List<SondageDate> sondageDates = (List<SondageDate>) query.getResultList();
+        List<SondageDate> sondageDates = sondageDateDaoImpl.getList();
         return sondageDates;
     }
     @GET
     @Path("/sondadeDate/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public SondageDate Search(@PathParam("id") String id){
-        SondageDate sondageDate = new SondageDate();
         entityManagerHelper.beginTransaction();
         sondageDate=entityManager.find(SondageDate.class, Integer.parseInt(id) );
         entityManagerHelper.closeEntityManager();
@@ -46,22 +44,21 @@ public class SondageDateService {
     @Path("delete/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public  void Delete(@PathParam("id") String id){
-        SondageDate sondageDate = new SondageDate();
         entityManagerHelper.beginTransaction();
         sondageDate=entityManager.find(SondageDate.class, Integer.parseInt(id));
-        entityManager.remove(sondageDate);
+        sondageDateDaoImpl.removeSd(sondageDate);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
     }
 
     @POST
-    @Path("Add/")
+    @Path("add/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes (MediaType.APPLICATION_JSON)
     public  void Add(SondageDate sondageDate){
         entityManagerHelper.beginTransaction();
-        entityManager.merge(sondageDate);
+        sondageDateDaoImpl.addSd(sondageDate);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
@@ -72,7 +69,7 @@ public class SondageDateService {
     @Consumes({MediaType.APPLICATION_JSON})
     public void  Update(SondageDate sondageDate){
         entityManagerHelper.beginTransaction();
-        entityManager.merge(sondageDate);
+        sondageDateDaoImpl.updateSd(sondageDate);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 

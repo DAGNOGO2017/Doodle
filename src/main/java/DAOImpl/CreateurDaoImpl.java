@@ -8,10 +8,17 @@ import javax.persistence.Query;
 
 import DAO.ICreateurDAO;
 import Entities.Createur;
+import jpa.EntityManagerHelper;
 
 public class CreateurDaoImpl implements ICreateurDAO {
-	@PersistenceContext
+
 	private EntityManager em;
+	
+	public CreateurDaoImpl() {
+		super();
+		this.em = EntityManagerHelper.getEntityManager();
+	}
+
 	public Createur addCreateur(Createur createur) {
 		em.persist(createur);
 		return createur;

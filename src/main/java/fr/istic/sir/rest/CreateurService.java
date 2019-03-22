@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import DAOImpl.CreateurDaoImpl;
 import Entities.Createur;
 import Entities.Utilisateur;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Path("/Createur")
 public class CreateurService {
     private Utilisateur createur;
+    CreateurDaoImpl createurDaoImpl = new CreateurDaoImpl();
     EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
     EntityManager entityManager = entityManagerHelper.getEntityManager();
 
@@ -27,11 +29,10 @@ public class CreateurService {
     @Path("/createur")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Createur> list() {
-        Createur createur = new Createur();
-        entityManagerHelper.beginTransaction();
-        String req = "Select c from Createur c";
-        Query query = entityManager.createQuery(req, Createur.class);
-        List<Createur> createurs = (List<Createur>) query.getResultList();
+    	entityManagerHelper.beginTransaction();
+        List<Createur> createurs =createurDaoImpl.getList();
+        entityManagerHelper.commit();
+        entityManagerHelper.closeEntityManager();
         return createurs;
     }
 
@@ -49,11 +50,11 @@ public class CreateurService {
     @DELETE
     @Path("delete/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public void Delete(@PathParam("id") String id) {
+    public void Delete(@PathParam("id") int id) {
         Createur createur = new Createur();
         entityManagerHelper.beginTransaction();
-        createur = entityManager.find(Createur.class, Integer.parseInt(id));
-        entityManager.remove(createur);
+        createur = entityManager.find(Createur.class, id);
+        createurDaoImpl.removeCreateur(createur);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
@@ -65,7 +66,7 @@ public class CreateurService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void Add(Createur createur) {
         entityManagerHelper.beginTransaction();
-        entityManager.merge(createur);
+        createurDaoImpl.addCreateur(createur);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
@@ -76,7 +77,7 @@ public class CreateurService {
     @Consumes({MediaType.APPLICATION_JSON})
     public void Update(Createur createur) {
         entityManagerHelper.beginTransaction();
-        entityManager.merge(createur);
+        createurDaoImpl.updateCreateur(createur);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
     }

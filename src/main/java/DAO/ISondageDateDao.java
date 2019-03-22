@@ -9,4 +9,5 @@ public interface ISondageDateDao {
 	public void removeSd(SondageDate sd);
 	public void updateSd(SondageDate sd);
 	public List<SondageDate> getList();
+	public SondageDate getSondageDateById(int idsd);
 }

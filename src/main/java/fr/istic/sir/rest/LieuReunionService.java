@@ -50,10 +50,10 @@ public class LieuReunionService {
     @DELETE
     @Path("delete/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public void Delete(@PathParam("id") String id) {
+    public void Delete(@PathParam("id") long id) {
     	LieuReunion lieuReunion = new LieuReunion();
         entityManagerHelper.beginTransaction();
-        lieuReunion = entityManager.find(LieuReunion.class, Integer.parseInt(id));
+        lieuReunion = entityManager.find(LieuReunion.class, id);
         lieuReunionDaoImpl.removeReunion(lieuReunion);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
@@ -64,7 +64,7 @@ public class LieuReunionService {
     @Path("add/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void Add(@PathParam("id") int id, LieuReunion LieuReunion) {
+    public void Add(@PathParam("id") int id, LieuReunion lieuReunion) {
         entityManagerHelper.beginTransaction();
         lieuReunionDaoImpl.addReunion(id, lieuReunion);
         entityManagerHelper.commit();

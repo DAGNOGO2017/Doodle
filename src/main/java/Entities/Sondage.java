@@ -3,9 +3,11 @@ package Entities;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,12 +29,12 @@ public abstract class Sondage implements Serializable {
 	private int id;
 
 	private String libelleSondage;
-
-	private String dateCloture;
+	
+	private java.sql.Date dateCloture;
 
 	private String type;
 	
-	@OneToOne(mappedBy = "sondage")
+	@OneToOne(mappedBy = "sondage", cascade=CascadeType.ALL)
 	private Reunion reunion;
 	
 	
@@ -60,14 +62,13 @@ public abstract class Sondage implements Serializable {
 		this.id = id;
 	}
 
-	public String getDateCloture() {
+
+	public java.sql.Date getDateCloture() {
 		return dateCloture;
 	}
-
-	public void setDateCloture(String dateCloture) {
+	public void setDateCloture(java.sql.Date dateCloture) {
 		this.dateCloture = dateCloture;
 	}
-
 	public String getType() {
 		return type;
 	}
@@ -80,7 +81,7 @@ public abstract class Sondage implements Serializable {
 	public void setReunion(Reunion reunion) {
 		this.reunion = reunion;
 	}
-	@ManyToMany(mappedBy="sondages")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy="sondages")
 	public Collection<Utilisateur> getUtilisateurs() {
 		return utilisateurs;
 	}

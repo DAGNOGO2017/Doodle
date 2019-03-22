@@ -7,12 +7,23 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import DAO.IDatesDao;
+import DAO.ISondageDateDao;
 import Entities.Dates;
+import Entities.SondageDate;
+import jpa.EntityManagerHelper;
 
 public class DatesDaoImpl implements IDatesDao {
-	@PersistenceContext
+	private ISondageDateDao SondageDAO;
 	private EntityManager em;
-	public Dates addDates(Dates dates) {
+	public DatesDaoImpl() {
+		em = EntityManagerHelper.getEntityManager();
+		SondageDAO = new SondageDateDaoImpl();
+	}
+
+	@Override
+	public Dates addDates(int IdSondageDate, Dates dates) {
+		SondageDate sondageDate = this.SondageDAO.getSondageDateById(IdSondageDate);
+		sondageDate.addSondageDate(dates);
 		em.persist(dates);
 		return dates;
 	}

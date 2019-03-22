@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -26,7 +27,7 @@ public abstract class Utilisateur {
     private String nom;
     private String prenom;
   
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
 	 @JoinTable(name = "Utilisateur_Sondage", 
  		   joinColumns = @JoinColumn(name = "idUser"),
  		  inverseJoinColumns = @JoinColumn(name = "id"))

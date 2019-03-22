@@ -7,9 +7,14 @@ import javax.persistence.Query;
 
 import DAO.ISondageDao;
 import Entities.Sondage;
+import jpa.EntityManagerHelper;
 
 public class SondageDaoImpl implements ISondageDao {
 	private EntityManager em;
+	public SondageDaoImpl() {
+		em = EntityManagerHelper.getEntityManager();
+	}
+
 	public Sondage addSondage(Sondage sondage) {
 		em.persist(sondage);
 		return sondage;
