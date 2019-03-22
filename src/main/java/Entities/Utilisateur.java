@@ -1,10 +1,9 @@
 package Entities;
 
-import java.io.Serializable;
 import java.util.Collection;
 
-
-import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,13 +12,13 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Utilisateur")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Utilisateur implements Serializable {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE_PERSONNE", discriminatorType=DiscriminatorType.STRING)
+public abstract class Utilisateur {
 
 	@Id
 	@GeneratedValue
@@ -32,14 +31,8 @@ public abstract class Utilisateur implements Serializable {
  		   joinColumns = @JoinColumn(name = "idUser"),
  		  inverseJoinColumns = @JoinColumn(name = "id"))
     private Collection<Sondage> sondages;
-    
-    @OneToMany(mappedBy="utilisateur" , cascade=CascadeType.ALL)
-    private Collection<Allergie> allergies;
-    
-    @OneToMany(mappedBy="utilisateur" , cascade=CascadeType.ALL)
-    private Collection<PreferenceAlimentaire> preferenceAlimentaires;
-    
-    
+  
+   
 	public Utilisateur() {
 		// TODO Auto-generated constructor stub
 	}
@@ -65,24 +58,6 @@ public abstract class Utilisateur implements Serializable {
 		this.prenom = prenom;
 	}
 
-	
-
-	
-	public Collection<Allergie> getAllergies() {
-		return allergies;
-	}
-	public void setAllergies(Collection<Allergie> allergies) {
-		this.allergies = allergies;
-	}
-	
-	
-	public Collection<PreferenceAlimentaire> getPreferenceAlimentaires() {
-		return preferenceAlimentaires;
-	}
-	public void setPreferenceAlimentaires(Collection<PreferenceAlimentaire> preferenceAlimentaires) {
-		this.preferenceAlimentaires = preferenceAlimentaires;
-	}
-	
 	public Collection<Sondage> getSondages() {
 		return sondages;
 	}

@@ -9,4 +9,5 @@ public interface ISondageLieuDao {
 	public void removeSl(SondageLieu sl);
 	public void updateSl(SondageLieu sl);
 	public List<SondageLieu> getList();
+	public SondageLieu getSondageLieuById(int id);
 }

@@ -18,6 +18,10 @@ public class Dates implements Serializable {
 	@ManyToOne
 	private SondageDate sondageDate;
 	
+	public Dates() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public long getIdDate() {
 		return idDate;
 	}

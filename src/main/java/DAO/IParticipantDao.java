@@ -9,4 +9,5 @@ public interface IParticipantDao {
 	public void removeParticipant(Participant participant);
 	public void updateParticipant(Participant participant);
 	public List<Participant> getList();
+	public Participant getParticipantBId(int id);
 }

@@ -1,27 +1,51 @@
 package DAOImpl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import DAO.ILieuReunionDao;
-import Entities.Reunion;
+import DAO.ISondageLieuDao;
+import Entities.LieuReunion;
+import Entities.SondageLieu;
+import jpa.EntityManagerHelper;
 
 public class LieuReunionDaoImpl implements ILieuReunionDao {
-	@PersistenceContext
 	private EntityManager em;
-	public Reunion addReunion(Reunion reunion) {
-		em.persist(reunion);
-		return reunion;
+	private ISondageLieuDao sondageDAO;
+
+	public LieuReunionDaoImpl() {
+		this.em = EntityManagerHelper.getEntityManager();
+		sondageDAO = new SondageLieuDaoImpl();
 	}
 
-	public void removeReunion(Reunion reunion) {
-		em.remove(reunion);
+	@Override
+	public LieuReunion addReunion(int IdSondageLieu, LieuReunion lieureunion) {
+		SondageLieu sl = sondageDAO.getSondageLieuById(IdSondageLieu);
+		sl.addSondageLieu(lieureunion);
+		em.persist(lieureunion);
+		return lieureunion;
+	}
+
+	public void removeReunion(LieuReunion lieureunion) {
+		em.remove(lieureunion);
 		
 	}
 
-	public void updateReunion(Reunion reunion) {
-		em.merge(reunion);
+	public void updateReunion(LieuReunion lieureunion) {
+		em.merge(lieureunion);
 		
 	}
+
+	@Override
+	public List<LieuReunion> getList() {
+		String req = "Select lr from LieuReunion lr";
+		Query query = em.createQuery(req, LieuReunion.class);
+		@SuppressWarnings("unchecked")
+		List<LieuReunion> lieuReunions = query.getResultList();
+		return lieuReunions;
+	}
+
 
 }

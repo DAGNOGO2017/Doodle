@@ -5,14 +5,18 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
 
 @Entity
 public class Allergie implements Serializable {
 	private int idAllergie;
 	private String libelleAllergie;
-	private Utilisateur utilisateur;
+	private Participant participant;
 	
 	public Allergie(String libelleAllergie) {
 		super();
@@ -22,7 +26,7 @@ public class Allergie implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getIdAllergie() {
 		return idAllergie;
 	}
@@ -35,13 +39,14 @@ public class Allergie implements Serializable {
 	public void setLibelleAllergie(String libelleAllergie) {
 		this.libelleAllergie = libelleAllergie;
 	}
-	
+	@JsonBackReference
 	@ManyToOne
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+	@JoinColumn(name = "idUser")
+	public Participant getParticipant() {
+		return participant;
 	}
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setParticipant(Participant participant) {
+		this.participant = participant;
 	}
 	@Override
 	public int hashCode() {
@@ -49,7 +54,7 @@ public class Allergie implements Serializable {
 		int result = 1;
 		result = prime * result + idAllergie;
 		result = prime * result + ((libelleAllergie == null) ? 0 : libelleAllergie.hashCode());
-		result = prime * result + ((utilisateur == null) ? 0 : utilisateur.hashCode());
+		result = prime * result + ((participant == null) ? 0 : participant.hashCode());
 		return result;
 	}
 	@Override
@@ -68,17 +73,17 @@ public class Allergie implements Serializable {
 				return false;
 		} else if (!libelleAllergie.equals(other.libelleAllergie))
 			return false;
-		if (utilisateur == null) {
-			if (other.utilisateur != null)
+		if (participant == null) {
+			if (other.participant != null)
 				return false;
-		} else if (!utilisateur.equals(other.utilisateur))
+		} else if (!participant.equals(other.participant))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Allergie [idAllergie=" + idAllergie + ", libelleAllergie=" + libelleAllergie + ", utilisateur="
-				+ utilisateur + "]";
+		return "Allergie [idAllergie=" + idAllergie + ", libelleAllergie=" + libelleAllergie + ", participant="
+				+ participant + "]";
 	}
 	
 	

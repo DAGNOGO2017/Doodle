@@ -7,19 +7,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity
 public class PreferenceAlimentaire implements Serializable {
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private int idPreferenceAlimentaire;
 	private String libellePreferenceAlimentaire;
+	@JsonBackReference
 	@ManyToOne
-	private Utilisateur utilisateur;
-	
-	
-
+	private Participant participant;
 	public PreferenceAlimentaire(String libellePreferenceAlimentaire) {
 		super();
 		this.libellePreferenceAlimentaire = libellePreferenceAlimentaire;
@@ -39,13 +43,13 @@ public class PreferenceAlimentaire implements Serializable {
 	public void setLibellePreferenceAlimentaire(String libellePreferenceAlimentaire) {
 		this.libellePreferenceAlimentaire = libellePreferenceAlimentaire;
 	}
+	public Participant getParticipant() {
+		return participant;
+	}
+	public void setParticipant(Participant participant) {
+		this.participant = participant;
+	}
 	
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
 
 
 	

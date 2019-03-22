@@ -47,7 +47,7 @@ public class ParticipantInfo extends HttpServlet {
                     "</BODY></HTML>");
             participant.setNom(request.getParameter("name"));
             participant.setPrenom(request.getParameter("firstname"));
-            participant.setEmailUtilisateur(request.getParameter("email"));
+            participant.setEmail(request.getParameter("email"));
             manager.persist(participant);
             //jpa.createUser();
         } catch (Exception e) {

@@ -1,19 +1,26 @@
 package fr.istic.sir.rest;
 
-import jpa.EntityManagerHelper;
+import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import DAOImpl.PrefAlimentaireDaoImpl;
 import Entities.PreferenceAlimentaire;
-
-import java.util.List;
+import jpa.EntityManagerHelper;
 
 @Path("/Preference")
 public class PreferenceService {
     private PreferenceAlimentaire preferenceAlimentaire;
+    PrefAlimentaireDaoImpl prefAlimentaireDaoImpl = new PrefAlimentaireDaoImpl();
     EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
     EntityManager entityManager = entityManagerHelper.getEntityManager();
     public PreferenceService() {
@@ -24,11 +31,9 @@ public class PreferenceService {
     @Path("/preference")
     @Produces(MediaType.APPLICATION_JSON)
     public List<PreferenceAlimentaire> list(){
-        PreferenceAlimentaire preferenceAlimentaire = new PreferenceAlimentaire();
         entityManagerHelper.beginTransaction();
-        String req = "Select p from PreferenceAlimentaire p";
-        Query query = entityManager.createQuery(req,PreferenceAlimentaire.class );
-        List<PreferenceAlimentaire> preferenceAlimentaires = (List<PreferenceAlimentaire>) query.getResultList();
+        List<PreferenceAlimentaire> preferenceAlimentaires = prefAlimentaireDaoImpl.getList();
+        entityManagerHelper.commit();
         return preferenceAlimentaires;
     }
     @GET
@@ -49,19 +54,19 @@ public class PreferenceService {
         PreferenceAlimentaire preferenceAlimentaire = new PreferenceAlimentaire();
         entityManagerHelper.beginTransaction();
         preferenceAlimentaire = entityManager.find(PreferenceAlimentaire.class, Integer.parseInt(id));
-        entityManager.remove(preferenceAlimentaire);
+        prefAlimentaireDaoImpl.removeprefAlimentaire(preferenceAlimentaire);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
     }
 
     @POST
-    @Path("add/")
+    @Path("add/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void Add(PreferenceAlimentaire preferenceAlimentaire) {
+    public void Add(@PathParam("id")int id, PreferenceAlimentaire preferenceAlimentaire) {
         entityManagerHelper.beginTransaction();
-        entityManager.merge(preferenceAlimentaire);
+        prefAlimentaireDaoImpl.addprefAlimentaire(id, preferenceAlimentaire);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
@@ -70,9 +75,10 @@ public class PreferenceService {
     @PUT
     @Path("update/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void Update(PreferenceAlimentaire preferenceAlimentaire) {
+    public void Update(@PathParam("id") int id, PreferenceAlimentaire pref) {
         entityManagerHelper.beginTransaction();
-        entityManager.merge(preferenceAlimentaire);
+       // preferenceAlimentaire = entityManager.find(PreferenceAlimentaire.class, id);
+        prefAlimentaireDaoImpl.updatePrefAlimentaire(id, pref);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
     }

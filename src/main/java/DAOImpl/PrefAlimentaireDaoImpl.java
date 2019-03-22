@@ -3,17 +3,27 @@ package DAOImpl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import DAO.IParticipantDao;
 import DAO.IPrefAlimentaire;
+import Entities.Participant;
 import Entities.PreferenceAlimentaire;
+import jpa.EntityManagerHelper;
 
 public class PrefAlimentaireDaoImpl implements IPrefAlimentaire {
-	@PersistenceContext
+	private IParticipantDao participantDAO;
+	
 	private EntityManager em;
 	
-	public PreferenceAlimentaire addprefAlimentaire(PreferenceAlimentaire pa) {
+	public PrefAlimentaireDaoImpl() {
+		em = new EntityManagerHelper().getEntityManager();
+		participantDAO = new ParticipantDaoImpl();
+	}
+
+	public PreferenceAlimentaire addprefAlimentaire(int IParticipant, PreferenceAlimentaire pa) {
+		Participant p = this.participantDAO.getParticipantBId(IParticipant);
+		p.addPAlimentaire(pa);
 		em.persist(pa);
 		return pa;
 	}
@@ -22,7 +32,8 @@ public class PrefAlimentaireDaoImpl implements IPrefAlimentaire {
 		em.remove(pa);
 	}
 
-	public void updatePrefAlimentaire(PreferenceAlimentaire pa) {
+	public void updatePrefAlimentaire(int id, PreferenceAlimentaire pa) {
+		pa.setIdPreferenceAlimentaire(id);
 		em.merge(pa);
 	}
 

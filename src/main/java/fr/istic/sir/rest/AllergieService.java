@@ -1,19 +1,26 @@
 package fr.istic.sir.rest;
 
-import jpa.EntityManagerHelper;
+import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import DAOImpl.AllergieDaoImpl;
 import Entities.Allergie;
-
-import java.util.List;
+import jpa.EntityManagerHelper;
 
 @Path("/Allergie")
 public class AllergieService {
     private Allergie allergie;
+    AllergieDaoImpl allergieDaoImpl = new AllergieDaoImpl();
     EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
     EntityManager entityManager = entityManagerHelper.getEntityManager();
     public AllergieService() {
@@ -24,11 +31,9 @@ public class AllergieService {
     @Path("/allergie")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Allergie> list(){
-        Allergie allergie = new Allergie();
         entityManagerHelper.beginTransaction();
-        String req = "Select a from Allergie a";
-        Query query = entityManager.createQuery(req,Allergie.class );
-        List<Allergie> allergies = (List<Allergie>) query.getResultList();
+        List<Allergie> allergies = allergieDaoImpl.getList();
+        entityManagerHelper.commit();
         return allergies;
     }
     @GET
@@ -49,19 +54,19 @@ public class AllergieService {
         Allergie allergie = new Allergie();
         entityManagerHelper.beginTransaction();
         allergie = entityManager.find(Allergie.class, Integer.parseInt(id));
-        entityManager.remove(allergie);
+        allergieDaoImpl.removeAllergie(allergie);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
     }
 
     @POST
-    @Path("add/")
+    @Path("add/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void Add(Allergie allergie) {
+    public void Add(@PathParam("id") int id, Allergie allergie) {
         entityManagerHelper.beginTransaction();
-        entityManager.merge(allergie);
+        allergieDaoImpl.addAllergie(id, allergie);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
@@ -72,7 +77,7 @@ public class AllergieService {
     @Consumes({MediaType.APPLICATION_JSON})
     public void Update(Allergie allergie) {
         entityManagerHelper.beginTransaction();
-        entityManager.merge(allergie);
+        allergieDaoImpl.updateAllergie(allergie);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
     }

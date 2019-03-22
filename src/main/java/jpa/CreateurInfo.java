@@ -39,9 +39,12 @@ public class CreateurInfo extends HttpServlet {
                     + request.getParameter("name") + "\n" +
                     " <LI>Prenoms: "
                     + request.getParameter("firstname") + "\n" +
+                    " <LI>Email: "
+                    + request.getParameter("email") + "\n" +
                     "</BODY></HTML>");
             createur.setNom(request.getParameter("name"));
             createur.setPrenom(request.getParameter("firstname"));
+            createur.setPrenom(request.getParameter("email"));
             //createur.set(request.getParameter("email"));
             manager.persist(createur);
 

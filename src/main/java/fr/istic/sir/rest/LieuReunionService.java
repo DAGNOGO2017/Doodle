@@ -13,59 +13,60 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import DAOImpl.SondageLieuDaoImpl;
-import Entities.SondageLieu;
+import DAOImpl.LieuReunionDaoImpl;
+import Entities.LieuReunion;
 import jpa.EntityManagerHelper;
 
-@Path("/SondageLieu")
-public class SondageLieuService {
-    private SondageLieu sondageLieu;
-    private SondageLieuDaoImpl sondageLieuDaoImpl = new SondageLieuDaoImpl();
+@Path("/LieuReunion")
+public class LieuReunionService {
+    private LieuReunion lieuReunion;
+    LieuReunionDaoImpl lieuReunionDaoImpl = new LieuReunionDaoImpl();
     EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
     EntityManager entityManager = entityManagerHelper.getEntityManager();
-    public SondageLieuService() {
+    public LieuReunionService() {
         super();
-        this.sondageLieu = new SondageLieu();
+        this.lieuReunion = new LieuReunion();
     }
     @GET
-    @Path("/sondageLieu")
+    @Path("/lieuReunion")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<SondageLieu> list(){
+    public List<LieuReunion> list(){
         entityManagerHelper.beginTransaction();
-        List<SondageLieu> sondageLieux = sondageLieuDaoImpl.getList();
-        return sondageLieux;
+        List<LieuReunion> lieuReunions = lieuReunionDaoImpl.getList();
+        entityManagerHelper.commit();
+        return lieuReunions;
     }
     @GET
-    @Path("/sondageLieu/{id}")
+    @Path("/lieuReunion/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public SondageLieu Search(@PathParam("id") String id){
-        SondageLieu sondageLieu = new SondageLieu();
+    public LieuReunion Search(@PathParam("id") String id) {
+    	LieuReunion lieuReunion = new LieuReunion();
         entityManagerHelper.beginTransaction();
-        sondageLieu=entityManager.find(SondageLieu.class, Integer.parseInt(id) );
+        lieuReunion = entityManager.find(LieuReunion.class, Integer.parseInt(id));
         entityManagerHelper.closeEntityManager();
-        return sondageLieu;
+        return lieuReunion;
     }
 
     @DELETE
     @Path("delete/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public  void Delete(@PathParam("id") String id){
-        SondageLieu sondageLieu = new SondageLieu();
+    public void Delete(@PathParam("id") String id) {
+    	LieuReunion lieuReunion = new LieuReunion();
         entityManagerHelper.beginTransaction();
-        sondageLieu=entityManager.find(SondageLieu.class, Integer.parseInt(id));
-        sondageLieuDaoImpl.removeSl(sondageLieu);
+        lieuReunion = entityManager.find(LieuReunion.class, Integer.parseInt(id));
+        lieuReunionDaoImpl.removeReunion(lieuReunion);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
     }
 
     @POST
-    @Path("add/")
-    @Consumes (MediaType.APPLICATION_JSON)
+    @Path("add/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public  void Add(SondageLieu sondageLieu){
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void Add(@PathParam("id") int id, LieuReunion LieuReunion) {
         entityManagerHelper.beginTransaction();
-        sondageLieuDaoImpl.addSl(sondageLieu);
+        lieuReunionDaoImpl.addReunion(id, lieuReunion);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
@@ -74,12 +75,11 @@ public class SondageLieuService {
     @PUT
     @Path("update/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void  Update(SondageLieu sondageLieu){
+    public void Update(LieuReunion lieuReunion) {
         entityManagerHelper.beginTransaction();
-        entityManager.merge(sondageLieu);
+        lieuReunionDaoImpl.updateReunion(lieuReunion);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
-
     }
 }
 

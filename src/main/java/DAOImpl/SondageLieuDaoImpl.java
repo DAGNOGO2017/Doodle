@@ -8,10 +8,15 @@ import javax.persistence.Query;
 
 import DAO.ISondageLieuDao;
 import Entities.SondageLieu;
+import jpa.EntityManagerHelper;
 
 public class SondageLieuDaoImpl implements ISondageLieuDao {
-	@PersistenceContext
 	private EntityManager em;
+	
+	public SondageLieuDaoImpl() {
+		this.em = EntityManagerHelper.getEntityManager();
+	}
+
 	public SondageLieu addSl(SondageLieu sl) {
 		em.persist(sl);
 		return sl;
@@ -32,6 +37,11 @@ public class SondageLieuDaoImpl implements ISondageLieuDao {
 		Query query = em.createQuery(req, SondageLieu.class);
 		List<SondageLieu> sondageLieus = query.getResultList();
 		return sondageLieus;
+	}
+
+	@Override
+	public SondageLieu getSondageLieuById(int id) {
+		return em.find(SondageLieu.class, id);
 	}
 
 }

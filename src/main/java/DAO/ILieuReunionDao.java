@@ -1,10 +1,14 @@
 package DAO;
 
-import Entities.Reunion;
+import java.util.List;
+
+import Entities.LieuReunion;
 
 public interface ILieuReunionDao {
-	public Reunion addReunion(Reunion reunion);
-	public void removeReunion(Reunion reunion);
-	public void updateReunion(Reunion reunion);
+	public LieuReunion addReunion(int idSondageLieu, LieuReunion reunion);
+	public void removeReunion(LieuReunion lieureunion);
+	public void updateReunion(LieuReunion lieureunion);
+	public List<LieuReunion> getList();
+	
 	
 }

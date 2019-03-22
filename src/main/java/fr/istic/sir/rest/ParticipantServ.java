@@ -3,6 +3,7 @@ import jpa.EntityManagerHelper;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import DAOImpl.ParticipantDaoImpl;
 import Entities.Participant;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ import java.util.List;
 @Path("/Participant")
 public class ParticipantServ {
     private Participant participant;
-    private Participant participantDAO = new Participant();
+    private ParticipantDaoImpl participantDaoImpl = new ParticipantDaoImpl();
     EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
     EntityManager entityManager = entityManagerHelper.getEntityManager();
     public ParticipantServ() {
@@ -27,11 +28,8 @@ public class ParticipantServ {
     @Path("/participant")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Participant> list(){
-        Participant participant = new Participant();
         entityManagerHelper.beginTransaction();
-        String req = "Select p from Participant p";
-        Query query = entityManager.createQuery(req,Participant.class );
-        List<Participant> participants = (List<Participant>) query.getResultList();
+        List<Participant> participants = participantDaoImpl.getList();
         entityManagerHelper.closeEntityManager();
         return participants;
     }
@@ -53,7 +51,7 @@ public class ParticipantServ {
         Participant participant = new Participant();
         entityManagerHelper.beginTransaction();
         participant=entityManager.find(Participant.class, Integer.parseInt(id));
-        entityManager.remove(participant);
+        participantDaoImpl.removeParticipant(participant);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
@@ -65,7 +63,7 @@ public class ParticipantServ {
     @Produces(MediaType.APPLICATION_JSON)
     public  void Add(Participant participant){
         entityManagerHelper.beginTransaction();
-        entityManager.merge(participant);
+        participantDaoImpl.addParticipant(participant);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
