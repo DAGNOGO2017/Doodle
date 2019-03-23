@@ -105,11 +105,5 @@ public class Participant extends Utilisateur implements Serializable{
 		pa.setParticipant(this);
 	}
 	
-	public void addSondageLieu(Collection<SondageLieu> sl) {
-		Objects.requireNonNull(sl);
-		if(sondageLieux.contains(sl))
-			throw new IllegalArgumentException();
-		this.sondageLieux.addAll(sl);
-		sl.setParticipants(this);
-	}
+	
 }
