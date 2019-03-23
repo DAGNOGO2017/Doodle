@@ -2,12 +2,14 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -21,9 +23,12 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 public class SondageDate extends Sondage implements Serializable{
 	
 	private List<Dates> listeDate = new ArrayList<Dates>();
+	
 	@ManyToOne
 	private Createur createur;
 	
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Collection<Participant> participants;
 	public SondageDate() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -37,7 +42,13 @@ public class SondageDate extends Sondage implements Serializable{
 	public void setListeDate(List<Dates> listeDate) {
 		this.listeDate = listeDate;
 	}
-	 public void addSondageDate(Dates d) {
+	 public Createur getCreateur() {
+		return createur;
+	}
+	public void setCreateur(Createur createur) {
+		this.createur = createur;
+	}
+	public void addSondageDate(Dates d) {
 		 Objects.requireNonNull(d);
 		 if(listeDate.contains(d))
 			 throw new IllegalArgumentException();

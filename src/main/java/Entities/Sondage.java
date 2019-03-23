@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
@@ -37,8 +38,6 @@ public abstract class Sondage implements Serializable {
 	@OneToOne(mappedBy = "sondage", cascade=CascadeType.ALL)
 	private Reunion reunion;
 	
-	
-	private Collection<Utilisateur> utilisateurs;
 	
 	public Sondage(String libelleSondage) {
 		super();
@@ -81,13 +80,4 @@ public abstract class Sondage implements Serializable {
 	public void setReunion(Reunion reunion) {
 		this.reunion = reunion;
 	}
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy="sondages")
-	public Collection<Utilisateur> getUtilisateurs() {
-		return utilisateurs;
-	}
-	public void setUtilisateurs(Collection<Utilisateur> utilisateurs) {
-		this.utilisateurs = utilisateurs;
-	}
-
-
 }

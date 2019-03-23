@@ -7,6 +7,8 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -22,10 +24,18 @@ public class SondageLieu extends Sondage implements Serializable{
 	
 	private Collection<LieuReunion> listeLieux;
 	
+	
+	private Collection<Participant> participants;
+	
+	@ManyToOne
+	private Createur createur;
+	
+
 	public SondageLieu() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	@JsonManagedReference
 	@OneToMany(mappedBy="sondageLieu" , cascade=CascadeType.ALL)
 	public Collection<LieuReunion> getListeLieux() {
@@ -35,9 +45,22 @@ public class SondageLieu extends Sondage implements Serializable{
 	public void setListeLieux(Collection<LieuReunion> listeLieux) {
 		this.listeLieux = listeLieux;
 	}
-
 	
-	 public void addSondageLieu(LieuReunion lr) {
+	@ManyToMany(cascade = CascadeType.ALL)
+	public Collection<Participant> getParticipants() {
+		return participants;
+	}
+	public void setParticipants(Collection<Participant> participants) {
+		this.participants = participants;
+	}
+	
+	 public Createur getCreateur() {
+		return createur;
+	}
+	public void setCreateur(Createur createur) {
+		this.createur = createur;
+	}
+	public void addSondageLieu(LieuReunion lr) {
 		 Objects.requireNonNull(lr);
 		 if(listeLieux.contains(lr))
 			 throw new IllegalArgumentException();
