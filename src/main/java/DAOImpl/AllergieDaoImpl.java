@@ -21,7 +21,7 @@ public class AllergieDaoImpl implements IAllergieDAO {
 		participantDAO = new ParticipantDaoImpl();
 	}
 
-	public Allergie addAllergie(int idParticipant, Allergie allergie) {
+	public Allergie addAllergie(String idParticipant, Allergie allergie) {
 		Participant p = this.participantDAO.getParticipantBId(idParticipant);
 		p.addAllergy(allergie);
 		em.persist(allergie);

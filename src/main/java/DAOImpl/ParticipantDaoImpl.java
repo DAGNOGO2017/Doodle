@@ -50,7 +50,7 @@ public class ParticipantDaoImpl implements IParticipantDao {
     }
 
 	@Override
-	public Participant getParticipantBId(int id) {
+	public Participant getParticipantBId(String id) {
 		return em.find(Participant.class, id);
 	}
 

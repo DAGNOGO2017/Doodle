@@ -16,12 +16,11 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "idUser")
+@PrimaryKeyJoinColumn(name = "email")
 @DiscriminatorValue("Participant")
 public class Participant extends Utilisateur implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private String email;
 	@JsonManagedReference
 	@OneToMany(mappedBy="participant" , cascade=CascadeType.ALL)
 	private Collection<Allergie> allergies;
@@ -32,14 +31,14 @@ public class Participant extends Utilisateur implements Serializable{
 	
 	@ManyToMany
 	@JoinTable(name = "Participant_SondageDate", 
-	   joinColumns = @JoinColumn(name = "idUser"),
-	  inverseJoinColumns = @JoinColumn(name = "id"))
+	   joinColumns = @JoinColumn(name = "emailParticipant"),
+	  inverseJoinColumns = @JoinColumn(name = "idSondageDate"))
 	private Collection<SondageDate> sondageDates;
 	
 	@ManyToMany
 	@JoinTable(name = "Participant_SondageLieux", 
-	   joinColumns = @JoinColumn(name = "idUser"),
-	  inverseJoinColumns = @JoinColumn(name = "id"))
+	   joinColumns = @JoinColumn(name = "emailParticipant"),
+	  inverseJoinColumns = @JoinColumn(name = "idSondageLieu"))
 	private Collection<SondageLieu> sondageLieux;
 	
 	public Participant() {
@@ -54,14 +53,6 @@ public class Participant extends Utilisateur implements Serializable{
 
 	public void setAllergies(Collection<Allergie> allergies) {
 		this.allergies = allergies;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public Collection<PreferenceAlimentaire> getPreferenceAlimentaires() {

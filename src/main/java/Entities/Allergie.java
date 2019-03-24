@@ -41,7 +41,7 @@ public class Allergie implements Serializable {
 	}
 	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name = "idUser")
+	@JoinColumn(name = "emailParticipant")
 	public Participant getParticipant() {
 		return participant;
 	}

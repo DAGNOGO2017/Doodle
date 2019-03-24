@@ -37,9 +37,9 @@ public class PreferenceService {
         return preferenceAlimentaires;
     }
     @GET
-    @Path("/preference/{id}")
+    @Path("/preference/{emailParticipant}")
     @Produces(MediaType.APPLICATION_JSON)
-    public PreferenceAlimentaire Search(@PathParam("id") String id) {
+    public PreferenceAlimentaire Search(@PathParam("emailParticipant") String id) {
         PreferenceAlimentaire preferenceAlimentaire = new PreferenceAlimentaire();
         entityManagerHelper.beginTransaction();
         preferenceAlimentaire = entityManager.find(PreferenceAlimentaire.class, Integer.parseInt(id));
@@ -48,9 +48,9 @@ public class PreferenceService {
     }
 
     @DELETE
-    @Path("delete/{id}")
+    @Path("delete/{emailParticipant}")
     @Produces({MediaType.APPLICATION_JSON})
-    public void Delete(@PathParam("id") String id) {
+    public void Delete(@PathParam("emailParticipant") String id) {
         PreferenceAlimentaire preferenceAlimentaire = new PreferenceAlimentaire();
         entityManagerHelper.beginTransaction();
         preferenceAlimentaire = entityManager.find(PreferenceAlimentaire.class, Integer.parseInt(id));
@@ -61,10 +61,10 @@ public class PreferenceService {
     }
 
     @POST
-    @Path("add/{id}")
+    @Path("add/{emailParticipant}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void Add(@PathParam("id")int id, PreferenceAlimentaire preferenceAlimentaire) {
+    public void Add(@PathParam("emailParticipant")String id, PreferenceAlimentaire preferenceAlimentaire) {
         entityManagerHelper.beginTransaction();
         prefAlimentaireDaoImpl.addprefAlimentaire(id, preferenceAlimentaire);
         entityManagerHelper.commit();
@@ -73,9 +73,9 @@ public class PreferenceService {
     }
 
     @PUT
-    @Path("update/{id}")
+    @Path("update/{emailParticipant}")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void Update(@PathParam("id") int id, PreferenceAlimentaire pref) {
+    public void Update(@PathParam("emailParticipant") int id, PreferenceAlimentaire pref) {
         entityManagerHelper.beginTransaction();
        // preferenceAlimentaire = entityManager.find(PreferenceAlimentaire.class, id);
         prefAlimentaireDaoImpl.updatePrefAlimentaire(id, pref);

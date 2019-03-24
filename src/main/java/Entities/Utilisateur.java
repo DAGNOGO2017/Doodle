@@ -3,7 +3,6 @@ package Entities;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -16,33 +15,46 @@ import javax.persistence.Table;
 public abstract class Utilisateur {
 
 	@Id
-	@GeneratedValue
-	private int idUser;
-    private String nom;
-    private String prenom;
+	private String email;
+    private String name;
+    private String firstname;
+    private String password;
   
 	public Utilisateur() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getIdUser() {
-		return idUser;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-    
-	public String getNom() {
-		return nom;
+
+	public String getName() {
+		return name;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getPrenom() {
-		return prenom;
+
+	public String getFirstname() {
+		return firstname;
 	}
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}	
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
 }

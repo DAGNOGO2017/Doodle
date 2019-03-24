@@ -1,21 +1,15 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Objects;
-
-import javax.persistence.CascadeType;
+import java.sql.Date;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,20 +23,20 @@ public abstract class Sondage implements Serializable {
 	
 	private int id;
 
-	private String libelleSondage;
+	private String titre;
+	
+	private String resume;
 	
 	private java.sql.Date dateCloture;
-
-	private String type;
-	
-	@OneToOne(mappedBy = "sondage", cascade=CascadeType.ALL)
-	private Reunion reunion;
 	
 	
-	public Sondage(String libelleSondage) {
+	public Sondage(String titre, String resume, Date dateCloture) {
 		super();
-		this.libelleSondage = libelleSondage;
+		this.titre = titre;
+		this.resume = resume;
+		this.dateCloture = dateCloture;
 	}
+
 	public Sondage() {
 	}
 	
@@ -51,16 +45,21 @@ public abstract class Sondage implements Serializable {
 	public int getId() {
 		return id;
 	}
-	public String getLibelleSondage() {
-		return libelleSondage;
-	}
-	public void setLibelleSondage(String libelleSondage) {
-		this.libelleSondage = libelleSondage;
-	}
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+	public String getResume() {
+		return resume;
+	}
+	public void setResume(String resume) {
+		this.resume = resume;
+	}
 
 	public java.sql.Date getDateCloture() {
 		return dateCloture;
@@ -68,16 +67,5 @@ public abstract class Sondage implements Serializable {
 	public void setDateCloture(java.sql.Date dateCloture) {
 		this.dateCloture = dateCloture;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public Reunion getReunion() {
-		return reunion;
-	}
-	public void setReunion(Reunion reunion) {
-		this.reunion = reunion;
-	}
+
 }

@@ -37,9 +37,9 @@ public class AllergieService {
         return allergies;
     }
     @GET
-    @Path("/allergie/{id}")
+    @Path("/allergie/{emailParticipant}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Allergie Search(@PathParam("id") String id) {
+    public Allergie Search(@PathParam("emailParticipant") String id) {
         Allergie allergie = new Allergie();
         entityManagerHelper.beginTransaction();
         allergie = entityManager.find(Allergie.class, Integer.parseInt(id));
@@ -48,9 +48,9 @@ public class AllergieService {
     }
 
     @DELETE
-    @Path("delete/{id}")
+    @Path("delete/{emailParticipant}")
     @Produces({MediaType.APPLICATION_JSON})
-    public void Delete(@PathParam("id") String id) {
+    public void Delete(@PathParam("emailParticipant") String id) {
         Allergie allergie = new Allergie();
         entityManagerHelper.beginTransaction();
         allergie = entityManager.find(Allergie.class, Integer.parseInt(id));
@@ -61,10 +61,10 @@ public class AllergieService {
     }
 
     @POST
-    @Path("add/{id}")
+    @Path("add/{emailParticipant}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void Add(@PathParam("id") int id, Allergie allergie) {
+    public void Add(@PathParam("emailParticipant") String id, Allergie allergie) {
         entityManagerHelper.beginTransaction();
         allergieDaoImpl.addAllergie(id, allergie);
         entityManagerHelper.commit();
@@ -73,7 +73,7 @@ public class AllergieService {
     }
 
     @PUT
-    @Path("update/{id}")
+    @Path("update/{emailParticipant}")
     @Consumes({MediaType.APPLICATION_JSON})
     public void Update(Allergie allergie) {
         entityManagerHelper.beginTransaction();

@@ -21,7 +21,7 @@ public class SondageLieuDaoImpl implements ISondageLieuDao {
 		participantDao = new ParticipantDaoImpl();
 	}
 
-	public SondageLieu addSl(int idP, SondageLieu sl) {
+	public SondageLieu addSl(String idP, SondageLieu sl) {
 		Participant p = this.participantDao.getParticipantBId(idP);
 		p.getSondageLieux().add(sl);
 		em.persist(sl);

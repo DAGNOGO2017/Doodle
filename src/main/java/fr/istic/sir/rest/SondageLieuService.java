@@ -36,9 +36,9 @@ public class SondageLieuService {
         return sondageLieux;
     }
     @GET
-    @Path("/sondageLieu/{id}")
+    @Path("/sondageLieu/{emailParticipant}")
     @Produces(MediaType.APPLICATION_JSON)
-    public SondageLieu Search(@PathParam("id") String id){
+    public SondageLieu Search(@PathParam("emailParticipant") String id){
         SondageLieu sondageLieu = new SondageLieu();
         entityManagerHelper.beginTransaction();
         sondageLieu=entityManager.find(SondageLieu.class, Integer.parseInt(id) );
@@ -47,9 +47,9 @@ public class SondageLieuService {
     }
 
     @DELETE
-    @Path("delete/{id}")
+    @Path("delete/{emailParticipant}")
     @Produces({MediaType.APPLICATION_JSON})
-    public  void Delete(@PathParam("id") String id){
+    public  void Delete(@PathParam("emailParticipant") String id){
         SondageLieu sondageLieu = new SondageLieu();
         entityManagerHelper.beginTransaction();
         sondageLieu=entityManager.find(SondageLieu.class, Integer.parseInt(id));
@@ -60,10 +60,10 @@ public class SondageLieuService {
     }
 
     @POST
-    @Path("add/{id}")
+    @Path("add/{emailParticipant}")
     @Consumes (MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public  void Add(@PathParam("id") int id, SondageLieu sondageLieu){
+    public  void Add(@PathParam("emailParticipant") String id, SondageLieu sondageLieu){
         entityManagerHelper.beginTransaction();
         sondageLieuDaoImpl.addSl(id, sondageLieu);
         entityManagerHelper.commit();
@@ -72,7 +72,7 @@ public class SondageLieuService {
     }
 
     @PUT
-    @Path("update/{id}")
+    @Path("update/{emailParticipant}")
     @Consumes({MediaType.APPLICATION_JSON})
     public void  Update(SondageLieu sondageLieu){
         entityManagerHelper.beginTransaction();

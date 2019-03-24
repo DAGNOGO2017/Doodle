@@ -18,7 +18,7 @@ public class SondageDateDaoImpl implements ISondageDateDao {
 		this.em = EntityManagerHelper.getEntityManager();
 		participantDao = new ParticipantDaoImpl();
 	}
-	public SondageDate addSd(int idIp, SondageDate sd) {
+	public SondageDate addSd(String idIp, SondageDate sd) {
 		Participant p = this.participantDao.getParticipantBId(idIp);
 		p.getSondageDates().add(sd);
 		em.persist(sd);

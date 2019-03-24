@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
@@ -43,6 +44,7 @@ public class PreferenceAlimentaire implements Serializable {
 	public void setLibellePreferenceAlimentaire(String libellePreferenceAlimentaire) {
 		this.libellePreferenceAlimentaire = libellePreferenceAlimentaire;
 	}
+	@JoinColumn(name = "emailParticipant")
 	public Participant getParticipant() {
 		return participant;
 	}

@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -53,7 +54,7 @@ public class SondageLieu extends Sondage implements Serializable{
 	public void setParticipants(Collection<Participant> participants) {
 		this.participants = participants;
 	}
-	
+	@JoinColumn(name ="emailCreateur")
 	 public Createur getCreateur() {
 		return createur;
 	}

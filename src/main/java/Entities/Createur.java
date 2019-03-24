@@ -12,7 +12,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @DiscriminatorValue("Createur")
-@PrimaryKeyJoinColumn(name = "idUser")
+@PrimaryKeyJoinColumn(name = "email")
 public class Createur extends Utilisateur implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

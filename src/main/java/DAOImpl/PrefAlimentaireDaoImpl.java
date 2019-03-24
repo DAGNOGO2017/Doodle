@@ -21,7 +21,7 @@ public class PrefAlimentaireDaoImpl implements IPrefAlimentaire {
 		participantDAO = new ParticipantDaoImpl();
 	}
 
-	public PreferenceAlimentaire addprefAlimentaire(int IParticipant, PreferenceAlimentaire pa) {
+	public PreferenceAlimentaire addprefAlimentaire(String IParticipant, PreferenceAlimentaire pa) {
 		Participant p = this.participantDAO.getParticipantBId(IParticipant);
 		p.addPAlimentaire(pa);
 		em.persist(pa);
