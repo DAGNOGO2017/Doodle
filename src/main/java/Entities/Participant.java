@@ -21,6 +21,7 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 public class Participant extends Utilisateur implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	private String email;
 	@JsonManagedReference
 	@OneToMany(mappedBy="participant" , cascade=CascadeType.ALL)
 	private Collection<Allergie> allergies;
@@ -46,7 +47,7 @@ public class Participant extends Utilisateur implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	private String email;
+	
 	public Collection<Allergie> getAllergies() {
 		return allergies;
 	}
@@ -104,6 +105,5 @@ public class Participant extends Utilisateur implements Serializable{
 		this.preferenceAlimentaires.add(pa);
 		pa.setParticipant(this);
 	}
-	
 	
 }

@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -15,10 +16,10 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class Createur extends Utilisateur implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@OneToMany(mappedBy = "createur",cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "createur",cascade=CascadeType.ALL)
 	private Collection<SondageDate> sondagesDates;
 	
-	@OneToMany(mappedBy = "createur",cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "createur",cascade=CascadeType.ALL)
 	private Collection<SondageLieu> sondageLieux;
 	public Createur() {
 		super();

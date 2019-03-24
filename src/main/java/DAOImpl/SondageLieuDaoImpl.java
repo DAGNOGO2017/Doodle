@@ -6,18 +6,24 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import DAO.IParticipantDao;
 import DAO.ISondageLieuDao;
+import Entities.Participant;
 import Entities.SondageLieu;
 import jpa.EntityManagerHelper;
 
 public class SondageLieuDaoImpl implements ISondageLieuDao {
+	private IParticipantDao participantDao;
 	private EntityManager em;
 	
 	public SondageLieuDaoImpl() {
 		this.em = EntityManagerHelper.getEntityManager();
+		participantDao = new ParticipantDaoImpl();
 	}
 
-	public SondageLieu addSl(SondageLieu sl) {
+	public SondageLieu addSl(int idP, SondageLieu sl) {
+		Participant p = this.participantDao.getParticipantBId(idP);
+		p.getSondageLieux().add(sl);
 		em.persist(sl);
 		return sl;
 	}

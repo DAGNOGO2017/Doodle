@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import DAO.IParticipantDao;
 import Entities.Participant;
+import Entities.SondageLieu;
 import jpa.EntityManagerHelper;
 
 public class ParticipantDaoImpl implements IParticipantDao {

@@ -3,7 +3,6 @@ package DAOImpl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import DAO.ICreateurDAO;
@@ -39,6 +38,12 @@ public class CreateurDaoImpl implements ICreateurDAO {
 		Query query = em.createQuery(req, Createur.class);
 		List<Createur> createurs = query.getResultList();
 		return createurs;
+	}
+
+	@Override
+	public Createur getCreateurById(int idC) {
+		// TODO Auto-generated method stub
+		return em.find(Createur.class, idC);
 	}
 
 }

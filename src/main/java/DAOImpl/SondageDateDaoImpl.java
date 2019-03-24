@@ -3,19 +3,24 @@ package DAOImpl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import DAO.IParticipantDao;
 import DAO.ISondageDateDao;
+import Entities.Participant;
 import Entities.SondageDate;
 import jpa.EntityManagerHelper;
 
 public class SondageDateDaoImpl implements ISondageDateDao {
+	private IParticipantDao participantDao;
 	private EntityManager em;
 	public SondageDateDaoImpl() {
 		this.em = EntityManagerHelper.getEntityManager();
+		participantDao = new ParticipantDaoImpl();
 	}
-	public SondageDate addSd(SondageDate sd) {
+	public SondageDate addSd(int idIp, SondageDate sd) {
+		Participant p = this.participantDao.getParticipantBId(idIp);
+		p.getSondageDates().add(sd);
 		em.persist(sd);
 		return sd;
 	}

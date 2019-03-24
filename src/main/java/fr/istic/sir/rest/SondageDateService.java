@@ -53,12 +53,12 @@ public class SondageDateService {
     }
 
     @POST
-    @Path("add/")
+    @Path("add/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes (MediaType.APPLICATION_JSON)
-    public  void Add(SondageDate sondageDate){
+    public  void Add(@PathParam("id") int id, SondageDate sondageDate){
         entityManagerHelper.beginTransaction();
-        sondageDateDaoImpl.addSd(sondageDate);
+        sondageDateDaoImpl.addSd(id, sondageDate);
         entityManagerHelper.commit();
         entityManagerHelper.closeEntityManager();
 
