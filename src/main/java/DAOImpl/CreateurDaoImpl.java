@@ -41,7 +41,7 @@ public class CreateurDaoImpl implements ICreateurDAO {
 	}
 
 	@Override
-	public Createur getCreateurById(int idC) {
+	public Createur getCreateurById(String idC) {
 		// TODO Auto-generated method stub
 		return em.find(Createur.class, idC);
 	}
