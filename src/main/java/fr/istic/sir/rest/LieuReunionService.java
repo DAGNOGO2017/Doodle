@@ -15,25 +15,19 @@ import javax.ws.rs.core.MediaType;
 
 import DAOImpl.LieuReunionDaoImpl;
 import Entities.LieuReunion;
-import jpa.EntityManagerHelper;
 
 @Path("/LieuReunion")
 public class LieuReunionService {
-    private LieuReunion lieuReunion;
     LieuReunionDaoImpl lieuReunionDaoImpl = new LieuReunionDaoImpl();
-    EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
-    EntityManager entityManager = entityManagerHelper.getEntityManager();
+    EntityManager entityManager;
     public LieuReunionService() {
         super();
-        this.lieuReunion = new LieuReunion();
     }
     @GET
     @Path("/lieuReunion")
     @Produces(MediaType.APPLICATION_JSON)
     public List<LieuReunion> list(){
-        entityManagerHelper.beginTransaction();
         List<LieuReunion> lieuReunions = lieuReunionDaoImpl.getList();
-        entityManagerHelper.commit();
         return lieuReunions;
     }
     @GET
@@ -41,9 +35,8 @@ public class LieuReunionService {
     @Produces(MediaType.APPLICATION_JSON)
     public LieuReunion Search(@PathParam("id") String id) {
     	LieuReunion lieuReunion = new LieuReunion();
-        entityManagerHelper.beginTransaction();
         lieuReunion = entityManager.find(LieuReunion.class, Integer.parseInt(id));
-        entityManagerHelper.closeEntityManager();
+
         return lieuReunion;
     }
 
@@ -52,12 +45,8 @@ public class LieuReunionService {
     @Produces({MediaType.APPLICATION_JSON})
     public void Delete(@PathParam("id") long id) {
     	LieuReunion lieuReunion = new LieuReunion();
-        entityManagerHelper.beginTransaction();
         lieuReunion = entityManager.find(LieuReunion.class, id);
         lieuReunionDaoImpl.removeReunion(lieuReunion);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
-
     }
 
     @POST
@@ -65,21 +54,14 @@ public class LieuReunionService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public void Add(@PathParam("id") int id, LieuReunion lieuReunion) {
-        entityManagerHelper.beginTransaction();
         lieuReunionDaoImpl.addReunion(id, lieuReunion);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
-
     }
 
     @PUT
     @Path("update/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     public void Update(LieuReunion lieuReunion) {
-        entityManagerHelper.beginTransaction();
         lieuReunionDaoImpl.updateReunion(lieuReunion);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
     }
 }
 

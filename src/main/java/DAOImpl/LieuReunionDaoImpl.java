@@ -22,19 +22,29 @@ public class LieuReunionDaoImpl implements ILieuReunionDao {
 
 	@Override
 	public LieuReunion addReunion(int IdSondageLieu, LieuReunion lieureunion) {
+		EntityManagerHelper.beginTransaction();
 		SondageLieu sl = sondageDAO.getSondageLieuById(IdSondageLieu);
 		sl.addSondageLieu(lieureunion);
 		em.persist(lieureunion);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return lieureunion;
 	}
 
 	public void removeReunion(LieuReunion lieureunion) {
+		EntityManagerHelper.beginTransaction();
 		em.remove(lieureunion);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		
 	}
 
 	public void updateReunion(LieuReunion lieureunion) {
+		EntityManagerHelper.beginTransaction();
 		em.merge(lieureunion);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
+		
 		
 	}
 

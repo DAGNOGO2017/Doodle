@@ -19,26 +19,37 @@ public class SondageDateDaoImpl implements ISondageDateDao {
 		participantDao = new ParticipantDaoImpl();
 	}
 	public SondageDate addSd(String idIp, SondageDate sd) {
+		EntityManagerHelper.beginTransaction();
 		Participant p = this.participantDao.getParticipantBId(idIp);
 		p.getSondageDates().add(sd);
 		em.persist(sd);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return sd;
 	}
 
 	public void removeSd(SondageDate sd) {
+		EntityManagerHelper.beginTransaction();
 		em.remove(sd);
-		
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 	}
 
 	public void updateSd(SondageDate sd) {
+		EntityManagerHelper.beginTransaction();
 		em.merge(sd);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		
 	}
 
 	public List<SondageDate> getList() {
+		EntityManagerHelper.beginTransaction();
 		String req = "Select sd from SondageDate sd";
 		Query query = em.createQuery(req, SondageDate.class);
 		List<SondageDate> sondageDates = query.getResultList();
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return sondageDates;
 	}
 

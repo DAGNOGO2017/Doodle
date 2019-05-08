@@ -22,27 +22,40 @@ public class AllergieDaoImpl implements IAllergieDAO {
 	}
 
 	public Allergie addAllergie(String idParticipant, Allergie allergie) {
+		EntityManagerHelper.beginTransaction();
 		Participant p = this.participantDAO.getParticipantBId(idParticipant);
 		p.addAllergy(allergie);
 		em.persist(allergie);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return allergie;
 	}
 
 	public void removeAllergie(Allergie allergie) {
+		EntityManagerHelper.beginTransaction();
 		em.remove(allergie);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		
 	}
 
 	public void updateAllergie(Allergie allergie) {
+		EntityManagerHelper.beginTransaction();
 		em.merge(allergie);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		
 	}
 
 	public List<Allergie> getList() {
+		EntityManagerHelper.beginTransaction();
 		String req = "Select a from Allergie a";
 		Query query = em.createQuery(req, Allergie.class);
 		@SuppressWarnings("unchecked")
 		List<Allergie> allergies = query.getResultList();
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
+		
 		return allergies;
 	}
 

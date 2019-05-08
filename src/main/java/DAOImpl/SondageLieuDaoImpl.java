@@ -3,7 +3,6 @@ package DAOImpl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import DAO.IParticipantDao;
@@ -22,26 +21,38 @@ public class SondageLieuDaoImpl implements ISondageLieuDao {
 	}
 
 	public SondageLieu addSl(String idP, SondageLieu sl) {
+		EntityManagerHelper.beginTransaction();
 		Participant p = this.participantDao.getParticipantBId(idP);
 		p.getSondageLieux().add(sl);
 		em.persist(sl);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return sl;
 	}
 
 	public void removeSl(SondageLieu sl) {
+		EntityManagerHelper.beginTransaction();
 		em.remove(sl);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		
 	}
 
 	public void updateSl(SondageLieu sl) {
+		EntityManagerHelper.beginTransaction();
 		em.merge(sl);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		
 	}
 
 	public List<SondageLieu> getList() {
+		EntityManagerHelper.beginTransaction();
 		String req = "Select sl from SondageLieu sl";
 		Query query = em.createQuery(req, SondageLieu.class);
 		List<SondageLieu> sondageLieus = query.getResultList();
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return sondageLieus;
 	}
 

@@ -14,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
@@ -23,6 +22,11 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 @DiscriminatorValue("SondageDate")
 public class SondageDate extends Sondage implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3549957441964693139L;
+
 	private List<Dates> listeDate = new ArrayList<Dates>();
 	
 	@ManyToOne

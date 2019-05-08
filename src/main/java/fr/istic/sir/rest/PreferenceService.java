@@ -19,21 +19,17 @@ import jpa.EntityManagerHelper;
 
 @Path("/Preference")
 public class PreferenceService {
-    private PreferenceAlimentaire preferenceAlimentaire;
     PrefAlimentaireDaoImpl prefAlimentaireDaoImpl = new PrefAlimentaireDaoImpl();
     EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
-    EntityManager entityManager = entityManagerHelper.getEntityManager();
+    EntityManager entityManager;
     public PreferenceService() {
         super();
-        this.preferenceAlimentaire = new PreferenceAlimentaire();
     }
     @GET
     @Path("/preference")
     @Produces(MediaType.APPLICATION_JSON)
     public List<PreferenceAlimentaire> list(){
-        entityManagerHelper.beginTransaction();
         List<PreferenceAlimentaire> preferenceAlimentaires = prefAlimentaireDaoImpl.getList();
-        entityManagerHelper.commit();
         return preferenceAlimentaires;
     }
     @GET
@@ -41,9 +37,7 @@ public class PreferenceService {
     @Produces(MediaType.APPLICATION_JSON)
     public PreferenceAlimentaire Search(@PathParam("emailParticipant") String id) {
         PreferenceAlimentaire preferenceAlimentaire = new PreferenceAlimentaire();
-        entityManagerHelper.beginTransaction();
         preferenceAlimentaire = entityManager.find(PreferenceAlimentaire.class, Integer.parseInt(id));
-        entityManagerHelper.closeEntityManager();
         return preferenceAlimentaire;
     }
 
@@ -52,12 +46,8 @@ public class PreferenceService {
     @Produces({MediaType.APPLICATION_JSON})
     public void Delete(@PathParam("emailParticipant") String id) {
         PreferenceAlimentaire preferenceAlimentaire = new PreferenceAlimentaire();
-        entityManagerHelper.beginTransaction();
         preferenceAlimentaire = entityManager.find(PreferenceAlimentaire.class, Integer.parseInt(id));
         prefAlimentaireDaoImpl.removeprefAlimentaire(preferenceAlimentaire);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
-
     }
 
     @POST
@@ -65,22 +55,15 @@ public class PreferenceService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public void Add(@PathParam("emailParticipant")String id, PreferenceAlimentaire preferenceAlimentaire) {
-        entityManagerHelper.beginTransaction();
         prefAlimentaireDaoImpl.addprefAlimentaire(id, preferenceAlimentaire);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
-
     }
 
     @PUT
     @Path("update/{emailParticipant}")
     @Consumes({MediaType.APPLICATION_JSON})
     public void Update(@PathParam("emailParticipant") int id, PreferenceAlimentaire pref) {
-        entityManagerHelper.beginTransaction();
        // preferenceAlimentaire = entityManager.find(PreferenceAlimentaire.class, id);
         prefAlimentaireDaoImpl.updatePrefAlimentaire(id, pref);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
     }
 }
 

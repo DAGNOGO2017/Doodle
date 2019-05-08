@@ -15,6 +15,10 @@ import org.codehaus.jackson.annotate.JsonBackReference;
 public class LieuReunion implements Serializable {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4565809696962369297L;
 	private long idLieu;
 	private String libelleLieu;
 	private SondageLieu sondageLieu;

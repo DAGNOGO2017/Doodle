@@ -1,36 +1,38 @@
 package fr.istic.sir.rest;
-import jpa.EntityManagerHelper;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import DAOImpl.ParticipantDaoImpl;
 import Entities.Participant;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
 @JsonAutoDetect
 @JsonIgnoreProperties
 @Path("/Participant")
 public class ParticipantServ {
-    private Participant participant;
+    private EntityManager em;
     private ParticipantDaoImpl participantDaoImpl = new ParticipantDaoImpl();
-    EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
-    EntityManager entityManager = entityManagerHelper.getEntityManager();
     public ParticipantServ() {
         super();
-        this.participant = new Participant();
+        
     }
 
     @GET
     @Path("/participant")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Participant> list(){
-        entityManagerHelper.beginTransaction();
         List<Participant> participants = participantDaoImpl.getList();
-        entityManagerHelper.closeEntityManager();
         return participants;
     }
 
@@ -39,9 +41,8 @@ public class ParticipantServ {
     @Produces(MediaType.APPLICATION_JSON)
     public Participant Search(@PathParam("id") String id){
         Participant participant = new Participant();
-        entityManagerHelper.beginTransaction();
-        participant=entityManager.find(Participant.class, Integer.parseInt(id) );
-        entityManagerHelper.closeEntityManager();
+        
+        participant=em.find(Participant.class, Integer.parseInt(id) );
         return participant;
     }
 
@@ -49,11 +50,8 @@ public class ParticipantServ {
     @Produces({MediaType.APPLICATION_JSON})
     public  void Delete(@PathParam("id") String id){
         Participant participant = new Participant();
-        entityManagerHelper.beginTransaction();
-        participant=entityManager.find(Participant.class, Integer.parseInt(id));
+        participant=em.find(Participant.class, Integer.parseInt(id));
         participantDaoImpl.removeParticipant(participant);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
 
     }
 
@@ -62,22 +60,15 @@ public class ParticipantServ {
     @Consumes (MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public  void Add(Participant participant){
-        entityManagerHelper.beginTransaction();
         participantDaoImpl.addParticipant(participant);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
 
     }
 
     @PUT
-    @Path("update/{id}")
+    @Path("update")
     @Consumes({MediaType.APPLICATION_JSON})
     public void  Update(Participant participant){
-        entityManagerHelper.beginTransaction();
-        entityManager.merge(participant);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
-
+        participantDaoImpl.updateParticipant(participant);
     }
 }
 

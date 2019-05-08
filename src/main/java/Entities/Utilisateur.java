@@ -1,5 +1,7 @@
 package Entities;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -12,8 +14,12 @@ import javax.persistence.Table;
 @Table(name = "Utilisateur")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE_PERSONNE", discriminatorType=DiscriminatorType.STRING)
-public abstract class Utilisateur {
+public abstract class Utilisateur implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8379939606805152821L;
 	@Id
 	private String email;
     private String name;

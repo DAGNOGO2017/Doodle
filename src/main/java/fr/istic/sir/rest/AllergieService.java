@@ -15,25 +15,20 @@ import javax.ws.rs.core.MediaType;
 
 import DAOImpl.AllergieDaoImpl;
 import Entities.Allergie;
-import jpa.EntityManagerHelper;
 
 @Path("/Allergie")
 public class AllergieService {
-    private Allergie allergie;
     AllergieDaoImpl allergieDaoImpl = new AllergieDaoImpl();
-    EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
-    EntityManager entityManager = entityManagerHelper.getEntityManager();
+    private EntityManager em;
     public AllergieService() {
         super();
-        this.allergie = new Allergie();
+        
     }
     @GET
     @Path("/allergie")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Allergie> list(){
-        entityManagerHelper.beginTransaction();
         List<Allergie> allergies = allergieDaoImpl.getList();
-        entityManagerHelper.commit();
         return allergies;
     }
     @GET
@@ -41,9 +36,7 @@ public class AllergieService {
     @Produces(MediaType.APPLICATION_JSON)
     public Allergie Search(@PathParam("emailParticipant") String id) {
         Allergie allergie = new Allergie();
-        entityManagerHelper.beginTransaction();
-        allergie = entityManager.find(Allergie.class, Integer.parseInt(id));
-        entityManagerHelper.closeEntityManager();
+        allergie = em.find(Allergie.class, Integer.parseInt(id));
         return allergie;
     }
 
@@ -52,12 +45,8 @@ public class AllergieService {
     @Produces({MediaType.APPLICATION_JSON})
     public void Delete(@PathParam("emailParticipant") String id) {
         Allergie allergie = new Allergie();
-        entityManagerHelper.beginTransaction();
-        allergie = entityManager.find(Allergie.class, Integer.parseInt(id));
+        allergie = em.find(Allergie.class, Integer.parseInt(id));
         allergieDaoImpl.removeAllergie(allergie);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
-
     }
 
     @POST
@@ -65,21 +54,14 @@ public class AllergieService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public void Add(@PathParam("emailParticipant") String id, Allergie allergie) {
-        entityManagerHelper.beginTransaction();
         allergieDaoImpl.addAllergie(id, allergie);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
-
     }
 
     @PUT
     @Path("update/{emailParticipant}")
     @Consumes({MediaType.APPLICATION_JSON})
     public void Update(Allergie allergie) {
-        entityManagerHelper.beginTransaction();
         allergieDaoImpl.updateAllergie(allergie);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
     }
 }
 

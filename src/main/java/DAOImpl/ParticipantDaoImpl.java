@@ -7,11 +7,11 @@ import javax.persistence.Query;
 
 import DAO.IParticipantDao;
 import Entities.Participant;
-import Entities.SondageLieu;
 import jpa.EntityManagerHelper;
 
 public class ParticipantDaoImpl implements IParticipantDao {
 	private EntityManager em;
+	//EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
 	
 	public ParticipantDaoImpl() {
 		this.em = EntityManagerHelper.getEntityManager();
@@ -19,17 +19,26 @@ public class ParticipantDaoImpl implements IParticipantDao {
 	
 	
 	public Participant addParticipant(Participant participant) {
+		EntityManagerHelper.beginTransaction();
 		em.persist(participant);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		return participant;
 	}
 
 	public void removeParticipant(Participant participant) {
+		EntityManagerHelper.beginTransaction();
 		em.remove(participant);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		
 	}
 
 	public void updateParticipant(Participant participant) {
+		EntityManagerHelper.beginTransaction();
 		em.merge(participant);
+		EntityManagerHelper.commit();
+		EntityManagerHelper.closeEntityManager();
 		
 	}
 
@@ -39,15 +48,6 @@ public class ParticipantDaoImpl implements IParticipantDao {
 		List<Participant> participants =query.getResultList();
 		return participants;
 	}
-
-
-    public void beginTransaction() {
-        em.getTransaction().begin();
-    }
-
-    public void commitTransaction() {
-        em.getTransaction().commit();
-    }
 
 	@Override
 	public Participant getParticipantBId(String id) {

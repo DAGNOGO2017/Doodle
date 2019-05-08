@@ -14,27 +14,22 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import DAOImpl.PersonneDaoImpl;
 import Entities.Personne;
-import jpa.EntityManagerHelper;
 @JsonAutoDetect
 @JsonIgnoreProperties
 @Path("/Personne")
 public class PersonneService {
-    private Personne personne;
     private PersonneDaoImpl personneDaoImpl = new PersonneDaoImpl();
-    EntityManagerHelper entityManagerHelper = new EntityManagerHelper();
-    EntityManager entityManager = entityManagerHelper.getEntityManager();
+    EntityManager entityManager;
     public PersonneService() {
         super();
-        this.personne = new Personne();
+        
     }
 
     @GET
     @Path("/personne")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Personne> list(){
-        entityManagerHelper.beginTransaction();
         List<Personne> personne = personneDaoImpl.getList();
-        entityManagerHelper.closeEntityManager();
         return personne;
     }
 
@@ -43,12 +38,8 @@ public class PersonneService {
     @Path("add/")
     @Consumes (MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public  void Add(Personne personne){
-        entityManagerHelper.beginTransaction();
+    public  void Add(Personne personne){   
         personneDaoImpl.addPersonne(personne);
-        entityManagerHelper.commit();
-        entityManagerHelper.closeEntityManager();
-
     }
 
 }
